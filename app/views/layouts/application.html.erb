@@ -7,6 +7,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <nav class="bg-yellow-100 p-2 text-sm">
+      <%= link_to "レシピ一覧", recipes_path, class: "mr-4" %>
+      <%= link_to "レシピ投稿", new_recipe_path %>
+    </nav>
+
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
