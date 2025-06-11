@@ -1,36 +1,31 @@
+<h2 class="text-xl font-bold mb-4">アカウント作成</h2>
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <div class="space-y-4">
+    <div>
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email, class: "w-full border rounded p-2" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :name, "ユーザー名" %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+    <div>
+      <%= f.label :password, "パスワード" %>
+      <%= f.password_field :password, class: "w-full border rounded p-2" %>
+    </div>
 
-  <!-- Family Name は仮パラメータなので、hiddenで入れてる params 扱い -->
-  <div class="field">
-    <%= label_tag :family_name, "家族名" %><br />
-    <%= text_field_tag :family_name, params[:family_name] %>
-  </div>
+    <div>
+      <%= f.label :password_confirmation, "確認用パスワード" %>
+      <%= f.password_field :password_confirmation, class: "w-full border rounded p-2" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
+    <div>
+      <%= f.fields_for :family do |ff| %>
+        <%= ff.label :name, "家族名" %>
+        <%= ff.text_field :name, class: "w-full border rounded p-2" %>
+      <% end %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> 文字以上)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "登録" %>
+    <div>
+      <%= f.submit "登録", class: "w-full bg-purple-600 text-white rounded py-2" %>
+    </div>
   </div>
 <% end %>

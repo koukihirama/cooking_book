@@ -1,30 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Myapp" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Family Recipe</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <nav class="bg-yellow-100 p-2 text-sm">
-      <%= link_to "レシピ一覧", recipes_path, class: "mr-4" %>
-      <%= link_to "レシピ投稿", new_recipe_path %>
-    </nav>
-
-    <%= yield :head %>
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-gray-50 text-gray-800">
+    <!-- 🌟 ナビゲーションヘッダーここに書く -->
+    <header class="bg-white shadow sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <%= link_to "Family Recipe", root_path, class: "text-xl font-bold text-purple-600" %>
+
+        <nav class="hidden md:flex space-x-4">
+          <%= link_to "レシピ一覧", recipes_path, class: "hover:text-purple-600" %>
+          <%= link_to "投稿", new_recipe_path, class: "hover:text-purple-600" %>
+        </nav>
+        <% if user_signed_in? %>
+        <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <% else %>
+        <%= link_to "ログイン", new_user_session_path, class: "text-purple-600" %>
+        <% end %>
+
+        <!-- モバイルドロワー -->
+        <button type="button" class="md:hidden hs-overlay-open" data-hs-overlay="#mobile-menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" ... />
+        </button>
+      </div>
+    </header>
+
+    <!-- 🌟 モバイルメニュー -->
+    <div id="mobile-menu" class="hs-overlay hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+      <div class="bg-white w-64 h-full p-4 shadow">
+        <button class="hs-overlay-close mb-4">✕</button>
+        <nav class="space-y-2">
+          <%= link_to "レシピ一覧", recipes_path, class: "block hover:text-purple-600" %>
+          <%= link_to "投稿", new_recipe_path, class: "block hover:text-purple-600" %>
+        </nav>
+      </div>
+    </div>
+
+    <!-- 🌟 各画面の中身 -->
+    <main class="container mx-auto px-4 py-6">
       <%= yield %>
     </main>
   </body>
