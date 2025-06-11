@@ -3,7 +3,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 
 # 追加：Deviseのテストヘルパーを読み込む
-require 'devise'
+require "devise"
 
 module ActiveSupport
   class TestCase
