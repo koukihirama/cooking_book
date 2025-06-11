@@ -2,6 +2,9 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+# 追加：Deviseのテストヘルパーを読み込む
+require "devise"
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
@@ -10,6 +13,7 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
-    # Add more helper methods to be used by all tests here...
+    # 追加：Deviseの統合テストヘルパーを使えるようにする
+    include Devise::Test::IntegrationHelpers
   end
 end

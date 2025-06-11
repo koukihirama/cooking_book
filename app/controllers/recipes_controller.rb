@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @recipes = Recipe.all
@@ -15,7 +15,7 @@ class RecipesController < ApplicationController
   def create
     @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
-      redirect_to @recipe, notice: 'レシピを登録しました'
+      redirect_to @recipe, notice: "レシピを登録しました"
     else
       render :new
     end
@@ -26,7 +26,7 @@ class RecipesController < ApplicationController
 
   def update
     if @recipe.update(recipe_params)
-      redirect_to @recipe, notice: 'レシピを更新しました'
+      redirect_to @recipe, notice: "レシピを更新しました"
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class RecipesController < ApplicationController
 
   def destroy
     @recipe.destroy
-    redirect_to recipes_path, notice: 'レシピを削除しました'
+    redirect_to recipes_path, notice: "レシピを削除しました"
   end
 
   private
