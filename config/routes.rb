@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
   registrations: "users/registrations"
 }
+  resources :posts
   get "posts/index"
   resources :recipes
   get "up" => "rails/health#show", as: :rails_health_check
