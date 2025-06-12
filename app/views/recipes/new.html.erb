@@ -1,26 +1,37 @@
-<h1 class="text-xl font-bold mb-4 text-purple-700">レシピを投稿する</h1>
-<%= form_with model: @recipe, local: true, html: { class: "space-y-4" } do |f| %>
-  <div>
-    <%= f.label :title, "タイトル", class: "block font-medium" %>
-    <%= f.text_field :title, class: "w-full border rounded px-3 py-2" %>
+<h1 class="text-xl font-bold mb-4">レシピ投稿</h1>
+
+<%= form_with model: @recipe, local: true do |f| %>
+  <div class="mb-4">
+    <%= f.label :title, "タイトル", class: "block font-semibold" %>
+    <%= f.text_field :title, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :ingredients, "材料", class: "block font-semibold" %>
+    <%= f.text_area :ingredients, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :instructions, "作り方", class: "block font-semibold" %>
+    <%= f.text_area :instructions, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :difficulty, "作りやすさランク（1〜5）", class: "block font-semibold" %>
+    <%= f.select :difficulty, options_for_select(1..5), {}, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :image, "写真", class: "block font-semibold" %>
+    <%= f.file_field :image, class: "w-full" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :tag_names, "タグ（カンマ区切り）", class: "block font-semibold" %>
+    <%= f.text_field :tag_names, value: "", class: "w-full p-2 border rounded" %>
   </div>
 
   <div>
-    <%= f.label :ingredients, "材料", class: "block font-medium" %>
-    <%= f.text_area :ingredients, rows: 3, class: "w-full border rounded px-3 py-2" %>
-  </div>
-
-  <div>
-    <%= f.label :instructions, "作り方", class: "block font-medium" %>
-    <%= f.text_area :instructions, rows: 5, class: "w-full border rounded px-3 py-2" %>
-  </div>
-
-  <div>
-    <%= f.label :photo, "写真", class: "block font-medium" %>
-    <%= f.file_field :photo, class: "block w-full" %>
-  </div>
-
-  <div>
-    <%= f.submit "投稿する", class: "w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700" %>
+    <%= f.submit "投稿する", class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" %>
   </div>
 <% end %>
