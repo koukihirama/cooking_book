@@ -1,4 +1,5 @@
-one:
-  title: Sample Recipe
-  instructions: "Mix all ingredients."
-  user: one
+sample_recipe:
+  title: "オムライス"
+  ingredients: "たまご, ごはん, ケチャップ"
+  directions: "まぜてやく"
+  user: taro

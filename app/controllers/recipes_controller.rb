@@ -1,12 +1,7 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [ :show, :edit, :update, :destroy ]
-
-  def index
-    @recipes = Recipe.all
-  end
-
-  def show
-  end
+  before_action :authenticate_user!
+  before_action :set_recipe, only: %i[show edit update destroy]
+  before_action :authorize_user!, only: %i[edit update destroy]
 
   def new
     @recipe = Recipe.new
@@ -15,7 +10,8 @@ class RecipesController < ApplicationController
   def create
     @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
-      redirect_to @recipe, notice: "レシピを登録しました"
+      assign_tags
+      redirect_to @recipe, notice: "レシピを投稿しました。"
     else
       render :new
     end
@@ -25,25 +21,32 @@ class RecipesController < ApplicationController
   end
 
   def update
-    if @recipe.update(recipe_params)
-      redirect_to @recipe, notice: "レシピを更新しました"
-    else
-      render :edit
-    end
   end
 
   def destroy
-    @recipe.destroy
-    redirect_to recipes_path, notice: "レシピを削除しました"
   end
 
   private
+
+  def recipe_params
+    params.require(:recipe).permit(:title, :ingredients, :instructions, :difficulty, :image, :tag_names)
+  end
+
+  def assign_tags
+    return if params[:recipe][:tag_names].blank?
+
+    tag_names = params[:recipe][:tag_names].split(",").map(&:strip).uniq
+    tag_names.each do |name|
+      tag = Tag.find_or_create_by(name: name)
+      @recipe.tags << tag
+    end
+  end
 
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end
 
-  def recipe_params
-    params.require(:recipe).permit(:title, :instructions, :ingredients, :photo)
+  def authorize_user!
+    redirect_to recipes_path, alert: "権限がありません" unless @recipe.user == current_user
   end
 end
