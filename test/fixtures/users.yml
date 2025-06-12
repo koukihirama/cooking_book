@@ -1,9 +1,4 @@
-one:
-  id: 980190962
-  email: alice@example.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
-
-two:
-  id: 980190963
-  email: bob@example.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password456') %>
+taro:
+  name: "Taro Yamada"
+  email: "taro@example.com"
+  password_digest: <%= BCrypt::Password.create('password') %>

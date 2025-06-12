@@ -2,7 +2,7 @@ require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one) # users.yml で定義されたユーザー
+    @user = users(:taro) # ここを 'taro' に修正します
     sign_in @user       # Devise のログインヘルパー
   end
 

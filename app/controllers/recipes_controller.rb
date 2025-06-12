@@ -35,7 +35,7 @@ class RecipesController < ApplicationController
   def assign_tags
     return if params[:recipe][:tag_names].blank?
 
-    tag_names = params[:recipe][:tag_names].split(',').map(&:strip).uniq
+    tag_names = params[:recipe][:tag_names].split(",").map(&:strip).uniq
     tag_names.each do |name|
       tag = Tag.find_or_create_by(name: name)
       @recipe.tags << tag
