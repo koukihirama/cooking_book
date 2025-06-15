@@ -7,6 +7,10 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def index
+    @recipes = Recipe.all
+  end
+
   def create
     @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
@@ -15,6 +19,9 @@ class RecipesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
   end
 
   def edit

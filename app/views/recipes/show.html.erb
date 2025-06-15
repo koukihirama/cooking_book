@@ -7,6 +7,10 @@
 </div>
 
 <div class="mt-4">
-  <h2 class="font-bold">作り方</h2>
-  <p class="whitespace-pre-wrap text-gray-700"><%= @recipe.instructions %></p>
+  <h2 class="text-lg font-bold mt-4">作り方</h2>
+<ol class="list-decimal list-inside space-y-1 text-gray-800">
+  <% @recipe.instructions.to_s.split("\n").each_with_index do |step, i| %>
+    <li><%= step %></li>
+  <% end %>
+</ol>
 </div>
