@@ -1,6 +1,10 @@
 <h1 class="text-2xl font-bold text-purple-700"><%= @recipe.title %></h1>
 <%= image_tag @recipe.photo, class: "w-full rounded mt-4" if @recipe.photo.attached? %>
 
+<% if @recipe.user == current_user %>
+  <%= link_to "削除", recipe_path(@recipe), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-red-500" %>
+<% end %>
+
 <div class="mt-4">
   <h2 class="font-bold">材料</h2>
   <p class="whitespace-pre-wrap text-gray-700"><%= @recipe.ingredients %></p>
