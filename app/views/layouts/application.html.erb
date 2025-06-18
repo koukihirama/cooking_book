@@ -10,26 +10,30 @@
   </head>
 
   <body class="bg-gray-50 text-gray-800">
-    <!-- 🌟 ナビゲーションヘッダーここに書く -->
     <header class="bg-white shadow sticky top-0 z-50">
-      <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <%= link_to "Family Recipe", root_path, class: "text-xl font-bold text-purple-600" %>
+      <div class="container max-w-screen-lg mx-auto px-4 py-3 flex justify-between items-center">
+        <!-- ロゴ -->
+        <%= link_to "Family Recipe", root_path, class: "text-xl font-bold text-purple-600 hover:text-purple-800" %>
 
-        <nav class="hidden md:flex space-x-4">
+        <!-- ナビ（PC） -->
+        <nav class="hidden md:flex space-x-6 items-center">
           <%= link_to "レシピ一覧", recipes_path, class: "hover:text-purple-600" %>
           <%= link_to "投稿", new_recipe_path, class: "hover:text-purple-600" %>
-        </nav>
-        <% if user_signed_in? %>
-        <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
-        <% else %>
-        <%= link_to "ログイン", new_user_session_path, class: "text-purple-600" %>
-        <% end %>
 
-        <!-- モバイルドロワー -->
-        <button type="button" class="md:hidden hs-overlay-open" data-hs-overlay="#mobile-menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+          <% if user_signed_in? %>
+            <span class="text-sm text-gray-500">こんにちは、<%= current_user.name %> さん</span>
+            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-sm text-red-500 hover:text-red-700" %>
+          <% else %>
+            <%= link_to "ログイン", new_user_session_path, class: "text-purple-600" %>
+            <%= link_to "新規登録", new_user_registration_path, class: "ml-2 text-blue-600" %>
+          <% end %>
+        </nav>
+
+        <!-- モバイル用トグル -->
+        <button type="button" class="md:hidden hs-overlay-open" data-hs-overlay="#mobile-menu" aria-label="モバイルメニューを開く">
+          <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
         </button>
       </div>
     </header>
@@ -37,16 +41,24 @@
     <!-- 🌟 モバイルメニュー -->
     <div id="mobile-menu" class="hs-overlay hidden fixed inset-0 bg-black bg-opacity-50 z-50">
       <div class="bg-white w-64 h-full p-4 shadow">
-        <button class="hs-overlay-close mb-4">✕</button>
-        <nav class="space-y-2">
+        <button class="hs-overlay-close mb-4 text-gray-500" aria-label="閉じる">✕</button>
+        <nav class="space-y-4">
           <%= link_to "レシピ一覧", recipes_path, class: "block hover:text-purple-600" %>
           <%= link_to "投稿", new_recipe_path, class: "block hover:text-purple-600" %>
+
+          <% if user_signed_in? %>
+            <div class="mt-4 text-sm text-gray-600">こんにちは、<%= current_user.name %> さん</div>
+            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-sm text-red-500 mt-2" %>
+          <% else %>
+            <%= link_to "ログイン", new_user_session_path, class: "block text-purple-600 mt-2" %>
+            <%= link_to "新規登録", new_user_registration_path, class: "block text-blue-600" %>
+          <% end %>
         </nav>
       </div>
     </div>
 
-    <!-- 🌟 各画面の中身 -->
-    <main class="container mx-auto px-4 py-6">
+    <!-- メインコンテンツ -->
+    <main class="container max-w-screen-lg mx-auto px-4 py-6">
       <%= yield %>
     </main>
   </body>
