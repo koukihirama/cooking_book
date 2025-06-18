@@ -39,7 +39,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :instructions, :difficulty, :image, :tag_names)
+  params.require(:recipe).permit(:title, :ingredients, :instructions, :difficulty, :image, :tag_names, :required_time)
   end
 
   def assign_tags

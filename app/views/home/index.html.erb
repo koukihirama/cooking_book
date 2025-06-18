@@ -1,28 +1,18 @@
-<div class="text-center p-6">
-  <h1 class="text-3xl font-bold text-purple-700">ようこそ、家族のレシピ帳へ</h1>
-  <p class="mt-2 text-gray-600">家族の思い出をレシピにして残そう</p>
+<div class="text-center py-16 bg-white shadow rounded">
+  <h1 class="text-4xl font-bold text-purple-700">ようこそ、Family Recipeへ</h1>
+  <p class="mt-4 text-lg text-gray-700">
+    家族だけでレシピを共有する、あたたかな思い出のアルバムのようなアプリです。
+  </p>
 
   <% if user_signed_in? %>
-    <%= link_to "レシピ一覧を見る", recipes_path, class: "btn btn-primary mt-4" %>
+    <div class="mt-8 space-x-4">
+      <%= link_to "レシピ一覧を見る", recipes_path, class: "bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" %>
+      <%= link_to "レシピを投稿する", new_recipe_path, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" %>
+    </div>
   <% else %>
-    <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline mt-4 mr-2" %>
-    <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary mt-4" %>
+    <div class="mt-8 space-x-4">
+      <%= link_to "ログイン", new_user_session_path, class: "bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded" %>
+      <%= link_to "新規登録", new_user_registration_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" %>
+    </div>
   <% end %>
-</div>
-
-<div class="mt-10">
-  <h2 class="text-xl font-semibold mb-4">新着レシピ</h2>
-  <div class="grid gap-4 sm:grid-cols-2">
-    <% @recent_recipes.each do |recipe| %>
-      <div class="bg-white shadow rounded-lg overflow-hidden">
-        <%= link_to recipe_path(recipe) do %>
-          <%= image_tag recipe.photo.variant(resize_to_limit: [400, 200]) if recipe.photo.attached? %>
-          <div class="p-4">
-            <h3 class="text-lg font-bold"><%= recipe.title %></h3>
-            <p class="text-sm text-gray-600 truncate"><%= recipe.ingredients %></p>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
 </div>

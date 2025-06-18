@@ -7,6 +7,11 @@
   </div>
 
   <div class="mb-4">
+    <%= f.label :required_time, "所要時間", class: "block font-semibold" %>
+    <%= f.number_field :required_time, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="mb-4">
     <%= f.label :ingredients, "材料", class: "block font-semibold" %>
     <%= f.text_area :ingredients, class: "w-full p-2 border rounded" %>
   </div>
