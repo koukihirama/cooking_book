@@ -1,42 +1,52 @@
-<h1 class="text-xl font-bold mb-4">レシピ投稿</h1>
+<div class="bg-yellow-50 text-black p-8 rounded-2xl shadow-xl max-w-2xl mx-auto">
+  <h1 class="text-3xl font-bold text-center text-purple-700 mb-8">🍽️ レシピをのせる</h1>
 
-<%= form_with model: @recipe, local: true do |f| %>
-  <div class="mb-4">
-    <%= f.label :title, "タイトル", class: "block font-semibold" %>
-    <%= f.text_field :title, class: "w-full p-2 border rounded" %>
-  </div>
+  <%= form_with model: @recipe, local: true do |f| %>
+    <!-- 📝 タイトル -->
+    <div class="mb-6">
+      <%= f.label :title, "📝 なまえ（タイトル）", class: "block text-xl font-semibold mb-2" %>
+      <%= f.text_field :title, class: "w-full p-4 text-lg border rounded-xl" %>
+    </div>
 
-  <div class="mb-4">
-    <%= f.label :required_time, "所要時間", class: "block font-semibold" %>
-    <%= f.number_field :required_time, class: "w-full p-2 border rounded" %>
-  </div>
+    <!-- 🕒 つくる時間 -->
+    <div class="mb-6">
+      <%= f.label :required_time, "🕒 つくる時間（分）", class: "block text-xl font-semibold mb-2" %>
+      <%= f.number_field :required_time, class: "w-full p-4 text-lg border rounded-xl" %>
+    </div>
 
-  <div class="mb-4">
-    <%= f.label :ingredients, "材料", class: "block font-semibold" %>
-    <%= f.text_area :ingredients, class: "w-full p-2 border rounded" %>
-  </div>
+    <!-- 🥬 材料 -->
+    <div class="mb-6">
+      <%= f.label :ingredients, "🥬 つかうもの（材料）", class: "block text-xl font-semibold mb-2" %>
+      <%= f.text_area :ingredients, rows: 4, class: "w-full p-4 text-lg border rounded-xl" %>
+    </div>
 
-  <div class="mb-4">
-    <%= f.label :instructions, "作り方", class: "block font-semibold" %>
-    <%= f.text_area :instructions, class: "w-full p-2 border rounded" %>
-  </div>
+    <!-- 🍳 作り方 -->
+    <div class="mb-6">
+      <%= f.label :instructions, "🍳 つくりかた", class: "block text-xl font-semibold mb-2" %>
+      <%= f.text_area :instructions, rows: 5, class: "w-full p-4 text-lg border rounded-xl" %>
+    </div>
 
-  <div class="mb-4">
-    <%= f.label :difficulty, "作りやすさランク（1〜5）", class: "block font-semibold" %>
-    <%= f.select :difficulty, options_for_select(1..5), {}, class: "w-full p-2 border rounded" %>
-  </div>
+    <!-- 🌟 作りやすさ -->
+    <div class="mb-6">
+      <%= f.label :difficulty, "🌟 つくりやすさ（1〜5）", class: "block text-xl font-semibold mb-2" %>
+      <%= f.select :difficulty, options_for_select(1..5), {}, class: "w-full p-4 text-lg border rounded-xl" %>
+    </div>
 
-  <div class="mb-4">
-    <%= f.label :image, "写真", class: "block font-semibold" %>
-    <%= f.file_field :image, class: "w-full" %>
-  </div>
+    <!-- 🖼️ 写真 -->
+    <div class="mb-6">
+      <%= f.label :photo, "写真", class: "block font-semibold" %>
+      <%= f.file_field :photo, class: "w-full" %>
+    </div>
 
-  <div class="mb-4">
-    <%= f.label :tag_names, "タグ（カンマ区切り）", class: "block font-semibold" %>
-    <%= f.text_field :tag_names, value: "", class: "w-full p-2 border rounded" %>
-  </div>
+    <!-- 🏷️ タグ -->
+    <div class="mb-6">
+      <%= f.label :tag_names, "🏷️ タグ（カンマで区切る）", class: "block text-xl font-semibold mb-2" %>
+      <%= f.text_field :tag_names, value: "", class: "w-full p-4 text-lg border rounded-xl" %>
+    </div>
 
-  <div>
-    <%= f.submit "投稿する", class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" %>
-  </div>
-<% end %>
+    <!-- ✅ 投稿ボタン -->
+    <div class="text-center">
+      <%= f.submit "✅ のせる", class: "bg-blue-500 text-white text-xl px-8 py-3 rounded-full hover:bg-blue-600" %>
+    </div>
+  <% end %>
+</div>
