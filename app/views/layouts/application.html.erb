@@ -9,7 +9,7 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body class="bg-gray-50 text-gray-800">
+  <body class="min-h-screen bg-cover bg-center text-gray-800" style="background-image: url(<%= asset_path('bg_cooking.jpg') %>)">
     <header class="bg-white shadow sticky top-0 z-50">
       <div class="container max-w-screen-lg mx-auto px-4 py-3 flex justify-between items-center">
         <!-- ロゴ -->
