@@ -25,10 +25,23 @@ class RecipesController < ApplicationController
   end
 
   def edit
+    @recipe = Recipe.find(params[:id])
+  @tag_names = @recipe.tags.pluck(:name).join(',') # 既存タグを文字列に
   end
 
   def update
+  @recipe = Recipe.find(params[:id])
+  tag_names = params[:recipe].delete(:tag_names)
+
+  if @recipe.update(recipe_params)
+    @recipe.tags = tag_names.to_s.split(',').map(&:strip).uniq.reject(&:blank?).map do |tag_name|
+      Tag.find_or_create_by(name: tag_name)
+    end
+    redirect_to @recipe, notice: "レシピを更新しました。"
+  else
+    render :edit, status: :unprocessable_entity
   end
+end 
 
   def destroy
     @recipe = current_user.recipes.find(params[:id])
