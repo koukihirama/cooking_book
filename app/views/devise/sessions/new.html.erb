@@ -1,30 +1,34 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-  <div class="w-full max-w-md bg-white rounded-2xl shadow p-6 space-y-6">
-    <h2 class="text-2xl font-bold text-center text-gray-800">ログイン</h2>
+<div class="min-h-screen flex items-center justify-center bg-yellow-50 px-4">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
 
-    <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), class: "space-y-4", local: true) do |f| %>
-      <!-- メールアドレス -->
+    <h2 class="text-2xl sm:text-3xl font-bold text-purple-700 text-center bg-white/80 px-4 py-2 inline-block rounded shadow">
+      🔑 ログイン
+    </h2>
+
+    <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), class: "space-y-5", local: true) do |f| %>
+
+      <!-- 📧 メールアドレス -->
       <div>
-        <%= f.label :email, "メールアドレス", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.email_field :email, autofocus: true, required: true, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500" %>
+        <%= f.label :email, "📧 メールアドレス", class: "block text-lg font-semibold mb-1 text-gray-700" %>
+        <%= f.email_field :email, autofocus: true, required: true, class: "w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400" %>
       </div>
 
-      <!-- パスワード -->
+      <!-- 🔒 パスワード -->
       <div>
-        <%= f.label :password, "パスワード", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.password_field :password, autocomplete: "current-password", required: true, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500" %>
+        <%= f.label :password, "🔒 パスワード", class: "block text-lg font-semibold mb-1 text-gray-700" %>
+        <%= f.password_field :password, autocomplete: "current-password", required: true, class: "w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400" %>
       </div>
 
-      <!-- ログインボタン -->
+      <!-- ✅ ログインボタン -->
       <div>
-        <%= f.submit "ログイン", class: "w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transition" %>
+        <%= f.submit "ログイン", class: "w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition" %>
       </div>
     <% end %>
 
-    <!-- 補助リンク -->
-    <div class="text-center text-sm text-gray-500">
-      アカウントをお持ちでないですか？
-      <%= link_to "新規登録", new_user_registration_path, class: "text-primary-600 hover:underline font-medium" %>
+    <!-- 👋 補助リンク -->
+    <div class="text-center text-sm text-gray-600">
+      アカウントをお持ちでないですか？<br>
+      <%= link_to "▶️ 新規登録はこちら", new_user_registration_path, class: "text-purple-600 hover:underline font-semibold" %>
     </div>
   </div>
 </div>
