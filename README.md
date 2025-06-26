@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 家族レシピ共有アプリ
 
-Things you may want to cover:
+一人暮らしの子どもや遠くに住む家族と、日々のレシピを温かく共有できるRails製アプリです。
+「おばあちゃんの煮物」「母の味のカレー」など、家族だけのレシピ帳を大切に残していきます。
 
-* Ruby version
+## 主な機能
 
-* System dependencies
+- ユーザー登録・ログイン（Devise）
+- レシピ投稿（タイトル・材料・作り方・難易度・所要時間・画像・タグ）
+- レシピ一覧・詳細・編集・削除（投稿者のみ）
+- タグによるレシピの絞り込み
+- モバイル対応（Tailwind CSS）
+- 認証済ユーザー（家族）のみが閲覧できるプライベートな空間
 
-* Configuration
+## 画面イメージ
 
-* Database creation
+## 技術スタック
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- フレームワーク: Ruby on Rails 7
+- フロントエンド: Tailwind CSS
+- 認証: Devise
+- 画像アップロード: ActiveStorage
+- データベース: PostgreSQL
