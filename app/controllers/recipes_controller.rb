@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def new
-    @recipe = Recipe.new
+    @recipes = Recipe.where(family_id: current_user.family_id).order(created_at: :desc)
   end
 
   def index
@@ -13,16 +13,20 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = current_user.recipes.build(recipe_params)
-    if @recipe.save
-      assign_tags
-      redirect_to @recipe, notice: "レシピを投稿しました。"
-    else
-      render :new
-    end
+    @recipe.family_id = current_user.family_id
+  if @recipe.save
+    redirect_to @recipe, notice: "レシピを投稿しました"
+  else
+    render :new
   end
+end
 
   def show
+  @recipe = Recipe.find(params[:id])
+  unless @recipe.family_id == current_user.family_id
+    redirect_to recipes_path, alert: "アクセスできません"
   end
+end
 
   def edit
     @recipe = Recipe.find(params[:id])

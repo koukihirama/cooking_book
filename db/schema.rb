@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_17_093602) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_27_063937) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_17_093602) do
     t.integer "difficulty"
     t.string "rank"
     t.integer "required_time"
+    t.bigint "family_id", null: false
+    t.index ["family_id"], name: "index_recipes_on_family_id"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -99,6 +101,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_17_093602) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "recipe_tags", "recipes"
   add_foreign_key "recipe_tags", "tags"
+  add_foreign_key "recipes", "families"
   add_foreign_key "recipes", "users"
   add_foreign_key "users", "families"
 end
