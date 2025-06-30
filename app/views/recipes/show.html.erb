@@ -1,4 +1,4 @@
-<div class="bg-yellow-50 text-black p-8 rounded-2xl shadow-xl max-w-2xl mx-auto">
+<div class="bg-yellow-50/80 backdrop-blur-md text-black p-8 rounded-3xl shadow-2xl max-w-2xl mx-auto">
   <!-- 📸 レシピ画像 -->
   <% if @recipe.image.attached? %>
     <%= image_tag @recipe.image, class: "w-full h-auto rounded-xl mb-6" %>
@@ -33,10 +33,14 @@
   </div>
 
   <!-- 🍳 つくりかた（作り方） -->
-  <div class="mb-6">
-    <h2 class="text-2xl font-semibold text-gray-800 flex items-center gap-2">🍳 つくりかた</h2>
-    <p class="text-xl text-gray-900 leading-relaxed mt-2 whitespace-pre-line"><%= @recipe.instructions %></p>
-  </div>
+<div class="mb-6">
+  <h2 class="text-2xl font-semibold text-gray-800 flex items-center gap-2">🍳 つくりかた</h2>
+  <ol class="list-decimal list-inside mt-2 space-y-2 text-xl text-gray-900 leading-relaxed">
+    <% @recipe.instructions.to_s.split(/\r?\n/).reject(&:blank?).each do |step| %>
+      <li><%= step %></li>
+    <% end %>
+  </ol>
+</div>
 
   <!-- 🌟 つくりやすさ -->
   <div class="mb-6">
@@ -53,10 +57,10 @@
   <!-- ✏️ 編集・🗑️ 削除 -->
   <% if @recipe.user == current_user %>
     <div class="flex flex-col items-center space-y-4">
-      <%= link_to "✏️ へんしゅう", edit_recipe_path(@recipe),
+      <%= link_to "✏️ 編集", edit_recipe_path(@recipe),
           class: "bg-blue-100 text-blue-700 text-xl px-6 py-3 rounded-full hover:bg-blue-200" %>
 
-      <%= button_to "🗑️ けす", recipe_path(@recipe), method: :delete,
+      <%= button_to "🗑️ 消す", recipe_path(@recipe), method: :delete,
           data: { confirm: "ほんとうにけしますか？" },
           class: "bg-red-100 text-red-700 text-xl px-6 py-3 rounded-full hover:bg-red-200" %>
     </div>

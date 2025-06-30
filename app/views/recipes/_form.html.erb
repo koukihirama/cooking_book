@@ -1,9 +1,8 @@
-<div class="bg-yellow-50 text-black p-8 rounded-2xl shadow-xl max-w-2xl mx-auto">
-
+<div class="bg-yellow-50/80 backdrop-blur-md text-black p-8 rounded-3xl shadow-2xl max-w-2xl mx-auto">
   <%= form_with model: @recipe, local: true, html: { multipart: true } do |f| %>
     <!-- 📝 タイトル -->
     <div class="mb-6">
-      <%= f.label :title, "📝 なまえ（タイトル）", class: "block text-xl font-semibold mb-2 font-sans" %>
+      <%= f.label :title, "📝 レシピ名", class: "block text-xl font-semibold mb-2 font-sans" %>
       <%= f.text_field :title, class: "w-full p-4 text-lg border rounded-xl" %>
     </div>
 
@@ -45,7 +44,7 @@
 
     <!-- ✅ 投稿ボタン -->
     <div class="text-center mt-8">
-      <%= f.submit "✅ のせる", class: "bg-blue-500 text-white text-xl px-8 py-3 rounded-full hover:bg-blue-600 transition" %>
+      <%= f.submit "✅ 投稿", class: "bg-blue-500 text-white text-xl px-8 py-3 rounded-full hover:bg-blue-600 transition" %>
     </div>
   <% end %>
 </div>
