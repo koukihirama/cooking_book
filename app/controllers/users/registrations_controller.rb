@@ -7,7 +7,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
-    resource.build_family(family_params)
 
     if resource.save
       sign_up(resource_name, resource)
@@ -22,10 +21,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
-  end
-
-  def family_params
-    params.require(:user).require(:family_attributes).permit(:name)
+    params.require(:user).permit(:email, :password, :password_confirmation, family_attributes: [:name])
   end
 end

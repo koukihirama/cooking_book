@@ -1,14 +1,21 @@
 class RecipesController < ApplicationController
+  #ユーザーがログインしていない場合、ログインページへリダイレクト
   before_action :authenticate_user!
+  #show, edit, update, destroy の前に @recipe をセット
   before_action :set_recipe, only: %i[show edit update destroy]
+  #edit, update, destroy の前に、そのレシピが自分のものかどうかチェック。
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def new
-    @recipes = Recipe.where(family_id: current_user.family_id).order(created_at: :desc)
+    @recipe = Recipe.new
+    @recipes = current_user.family.recipes.order(created_at: :desc)
   end
 
   def index
-    @recipes = Recipe.all
+  @recipes = Recipe.includes(:user, :tags)
+                   .with_attached_image
+                   .where(family_id: current_user.family_id)
+                   .order(created_at: :desc)
   end
 
   def create
@@ -22,29 +29,27 @@ class RecipesController < ApplicationController
 end
 
   def show
-  @recipe = Recipe.find(params[:id])
-  unless @recipe.family_id == current_user.family_id
-    redirect_to recipes_path, alert: "アクセスできません"
+    redirect_to recipes_path, alert: "アクセスできません" unless @recipe.family_id == current_user.family_id
   end
-end
 
   def edit
-    @recipe = Recipe.find(params[:id])
-  @tag_names = @recipe.tags.pluck(:name).join(",") # 既存タグを文字列に
+    @tag_names = @recipe.tags.pluck(:name).join(",") # 既存タグを文字列に
   end
 
   def update
-  @recipe = Recipe.find(params[:id])
   tag_names = params[:recipe].delete(:tag_names)
 
-  if @recipe.update(recipe_params)
-    @recipe.tags = tag_names.to_s.split(",").map(&:strip).uniq.reject(&:blank?).map do |tag_name|
-      Tag.find_or_create_by(name: tag_name)
+  ActiveRecord::Base.transaction do
+    if @recipe.update!(recipe_params)
+      @recipe.tags = tag_names.to_s.split(",").map(&:strip).uniq.reject(&:blank?).map do |tag_name|
+        Tag.find_or_create_by!(name: tag_name)
+      end
     end
-    redirect_to @recipe, notice: "レシピを更新しました。"
-  else
-    render :edit, status: :unprocessable_entity
   end
+
+  redirect_to @recipe, notice: "レシピを更新しました。"
+rescue ActiveRecord::RecordInvalid
+  render :edit, status: :unprocessable_entity
 end
 
   def destroy
@@ -57,16 +62,6 @@ end
 
   def recipe_params
   params.require(:recipe).permit(:title, :ingredients, :instructions, :difficulty, :image, :tag_names, :required_time)
-  end
-
-  def assign_tags
-    return if params[:recipe][:tag_names].blank?
-
-    tag_names = params[:recipe][:tag_names].split(",").map(&:strip).uniq
-    tag_names.each do |name|
-      tag = Tag.find_or_create_by(name: name)
-      @recipe.tags << tag
-    end
   end
 
   def set_recipe
