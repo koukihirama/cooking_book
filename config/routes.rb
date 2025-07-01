@@ -1,23 +1,22 @@
 Rails.application.routes.draw do
-  # ホームページとルートの設定
+  # ホーム画面
   root "home#index"
-  get "home/index"
 
-  # ユーザー認証 (Devise)
-  devise_for :users, controllers: {
-    registrations: "users/registrations"
-  }
+  resources :families, only: [:show]
 
-  # 投稿 (Posts) のリソースフルルーティング
+  # 家族コードログイン
+  resource :family_login, only: [:new, :create, :destroy]
+
+  # 投稿
   resources :posts
 
-  # レシピ (Recipes) のリソースフルルーティング
+  # レシピ
   resources :recipes
 
-  # Rails のヘルスチェック
+  # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # プログレッシブウェブアプリ (PWA) 関連
+  # PWA
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 end

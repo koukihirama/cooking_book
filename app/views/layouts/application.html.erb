@@ -20,14 +20,14 @@
           <%= link_to "レシピ一覧", recipes_path, class: "hover:text-[#d16a50]" %>
           <%= link_to "投稿", new_recipe_path, class: "hover:text-[#d16a50]" %>
 
-          <% if user_signed_in? %>
-            <span class="text-sm text-[#6e5e57]">こんにちは、<%= current_user.name %> さん</span>
-            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-sm text-red-500 hover:text-red-700" %>
-          <% else %>
-            <%= link_to "ログイン", new_user_session_path, class: "text-[#d16a50]" %>
-            <%= link_to "新規登録", new_user_registration_path, class: "ml-2 text-[#d16a50]" %>
-          <% end %>
-        </nav>
+          <% if current_family %>
+  <span class="text-sm text-[#6e5e57]">
+    こんにちは、<%= current_family.name %> さん
+  </span>
+  <%= button_to "ログアウト", family_logout_path, method: :delete, class: "text-sm text-red-500 hover:text-red-700" %>
+<% else %>
+  <%= link_to "家族コードでログイン", new_family_login_path, class: "text-[#d16a50]" %>
+<% end %>
 
         <!-- モバイル用トグル -->
         <button type="button" class="md:hidden hs-overlay-open" data-hs-overlay="#mobile-menu" aria-label="モバイルメニューを開く">
@@ -40,22 +40,28 @@
 
     <!-- 🌟 モバイルメニュー -->
     <div id="mobile-menu" class="hs-overlay hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-      <div class="bg-[#fffaf3] w-64 h-full p-4 shadow">
-        <button class="hs-overlay-close mb-4 text-gray-500" aria-label="閉じる">✕</button>
-        <nav class="space-y-4">
-          <%= link_to "レシピ一覧", recipes_path, class: "block hover:text-[#d16a50]" %>
-          <%= link_to "投稿", new_recipe_path, class: "block hover:text-[#d16a50]" %>
+  <div class="bg-[#fffaf3] w-64 h-full p-4 shadow">
+    <button class="hs-overlay-close mb-4 text-gray-500" aria-label="閉じる">✕</button>
+    <nav class="space-y-4">
+      <%= link_to "レシピ一覧", recipes_path, class: "block hover:text-[#d16a50]" %>
+      <%= link_to "投稿", new_recipe_path, class: "block hover:text-[#d16a50]" %>
+      <% if current_family %>
+    <%= link_to "家族設定", family_path(current_family), class: "..." %>
+  <% else %>
+    <%= link_to "家族コードでログイン", new_family_login_path, class: "..." %>
+  <% end %>
 
-          <% if user_signed_in? %>
-            <div class="mt-4 text-sm text-[#6e5e57]">こんにちは、<%= current_user.name %> さん</div>
-            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-sm text-red-500 mt-2" %>
-          <% else %>
-            <%= link_to "ログイン", new_user_session_path, class: "block text-[#d16a50] mt-2" %>
-            <%= link_to "新規登録", new_user_registration_path, class: "block text-[#d16a50]" %>
-          <% end %>
-        </nav>
-      </div>
-    </div>
+      <% if current_family %>
+        <div class="mt-4 text-sm text-[#6e5e57]">
+          こんにちは、<%= current_family.name %> さん
+        </div>
+        <%= button_to "ログアウト", family_logout_path, method: :delete, class: "text-sm text-red-500 mt-2" %>
+      <% else %>
+        <%= link_to "家族コードでログイン", new_family_login_path, class: "block text-[#d16a50] mt-2" %>
+      <% end %>
+    </nav>
+  </div>
+</div>
 
     <!-- メインコンテンツ -->
     <main class="container max-w-screen-lg mx-auto px-4 py-6">

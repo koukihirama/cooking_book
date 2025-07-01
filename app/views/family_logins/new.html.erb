@@ -1,0 +1,12 @@
+<h1>家族コードログイン</h1>
+
+<%= form_with url: family_login_path, method: :post do |form| %>
+  <div>
+    <%= form.label :family_code, "家族コード" %><br>
+    <%= form.text_field :family_code, value: (params[:family_code] || cookies[:family_code]) %>
+  </div>
+
+  <div>
+    <%= form.submit "ログイン" %>
+  </div>
+<% end %>
