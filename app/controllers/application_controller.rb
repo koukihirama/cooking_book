@@ -1,13 +1,27 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  before_action :auto_family_login
+  before_action :require_family_login
+  helper_method :current_family
 
-  before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user!
+  private
 
-  protected
+  def current_family
+    @current_family ||= Family.find_by(id: session[:family_id])
+  end
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :nickname ])
+  def auto_family_login
+    # まだ session に family_id がなければ、cookie から再ログイン
+    return if session[:family_id].present?
+
+    if cookies[:family_code]
+      family = Family.find_by(code: cookies[:family_code].to_s)
+      session[:family_id] = family.id if family
+    end
+  end
+
+  def require_family_login
+    return if session[:family_id].present?
+
+    redirect_to new_family_login_path, alert: "家族コードを入力してください"
   end
 end
