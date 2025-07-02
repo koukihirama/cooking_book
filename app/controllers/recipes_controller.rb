@@ -1,6 +1,4 @@
 class RecipesController < ApplicationController
-  #ユーザーがログインしていない場合、ログインページへリダイレクト
-  before_action :authenticate_user!
   #show, edit, update, destroy の前に @recipe をセット
   before_action :set_recipe, only: %i[show edit update destroy]
   #edit, update, destroy の前に、そのレシピが自分のものかどうかチェック。
@@ -8,19 +6,19 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
-    @recipes = current_user.family.recipes.order(created_at: :desc)
+    @recipes = current_family.recipes.order(created_at: :desc)
   end
 
   def index
   @recipes = Recipe.includes(:user, :tags)
-                   .with_attached_image
-                   .where(family_id: current_user.family_id)
-                   .order(created_at: :desc)
+                 .with_attached_image
+                 .where(family_id: current_family.id)
+                 .order(created_at: :desc)
   end
 
   def create
-    @recipe = current_user.recipes.build(recipe_params)
-    @recipe.family_id = current_user.family_id
+    @recipe = current_family.recipes.build(recipe_params)
+    @recipe.family_id = current_family.id
   if @recipe.save
     redirect_to @recipe, notice: "レシピを投稿しました"
   else
@@ -29,7 +27,7 @@ class RecipesController < ApplicationController
 end
 
   def show
-    redirect_to recipes_path, alert: "アクセスできません" unless @recipe.family_id == current_user.family_id
+    redirect_to recipes_path, alert: "アクセスできません" unless @recipe.family_id == current_family.id
   end
 
   def edit
@@ -53,7 +51,7 @@ rescue ActiveRecord::RecordInvalid
 end
 
   def destroy
-    @recipe = current_user.recipes.find(params[:id])
+    @recipe = current_family.recipes.find(params[:id])
     @recipe.destroy
     redirect_to recipes_path, notice: "レシピを削除しました。"
   end

@@ -1,0 +1,10 @@
+<h2 class="text-xl font-bold mb-4">新しい家族を作成</h2>
+
+<%= form_with model: @family, local: true do |f| %>
+  <div class="mb-4">
+    <%= f.label :name, "家族名", class: "block text-gray-700" %>
+    <%= f.text_field :name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm" %>
+  </div>
+
+  <%= f.submit "家族を作成する", class: "bg-[#d16a50] hover:bg-[#b8553f] text-white px-4 py-2 rounded" %>
+<% end %>
