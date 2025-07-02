@@ -1,13 +1,21 @@
-<h2 class="text-xl font-bold mb-4">家族設定</h2>
+<div class="bg-[#fffaf3] p-6 rounded-2xl shadow max-w-md mx-auto">
+  <h2 class="text-2xl font-bold mb-4 text-[#d16a50]">家族設定</h2>
 
-<p class="mb-2">
-  あなたの家族名: <strong><%= @family.name %></strong>
-</p>
+  <div class="mb-3">
+    <p class="text-[#4b3e39] mb-1">あなたの家族名</p>
+    <div class="text-lg font-semibold text-[#6e5e57] bg-white px-4 py-2 rounded shadow-inner">
+      <%= @family.name %>
+    </div>
+  </div>
 
-<p class="mb-2">
-  家族コード: <strong><%= @family.code %></strong>
-</p>
+  <div class="mb-4">
+    <p class="text-[#4b3e39] mb-1">家族コード</p>
+    <div class="text-lg font-mono font-semibold text-[#6e5e57] bg-white px-4 py-2 rounded shadow-inner">
+      <%= @family.code %>
+    </div>
+  </div>
 
-<p class="text-sm text-gray-600">
-  ※この家族コードを家族に伝えて、一緒にログインしてもらってください。
-</p>
+  <p class="text-sm text-gray-600">
+    ※この家族コードを家族に伝えて、一緒にログインしてもらってください。
+  </p>
+</div>

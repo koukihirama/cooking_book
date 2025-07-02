@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   # ホーム画面
   root "home#index"
 
-  resources :families, only: [:show]
+  resources :families, only: [:new, :create, :show]
 
   # 家族コードログイン
-  resource :family_login, only: [:new, :create, :destroy]
+  resource :family_login, only: [:new, :create]
+  delete "/family_logout", to: "family_logins#destroy", as: :family_logout
 
   # 投稿
   resources :posts
