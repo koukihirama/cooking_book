@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
-  #show, edit, update, destroy の前に @recipe をセット
+  # show, edit, update, destroy の前に @recipe をセット
   before_action :set_recipe, only: %i[show edit update destroy]
-  #edit, update, destroy の前に、そのレシピが自分のものかどうかチェック。
+  # edit, update, destroy の前に、そのレシピが自分のものかどうかチェック。
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def new

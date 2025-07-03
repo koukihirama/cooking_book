@@ -1,6 +1,6 @@
 class FamiliesController < ApplicationController
   # 家族コード入力画面ではセッションチェックをスキップ
-  skip_before_action :require_family_login, only: [:new, :create]
+  skip_before_action :require_family_login, only: [ :new, :create ]
 
   def new
     @family = Family.new
