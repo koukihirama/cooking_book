@@ -5,7 +5,7 @@
   <% end %>
 
   <!-- 📝 レシピタイトル -->
-  <h1 class="text-4xl font-bold text-purple-700 mb-6 text-center">
+  <h1 class="text-4xl font-bold text-orange-700 mb-6 text-center">
     <%= @recipe.title %>
   </h1>
 
@@ -13,7 +13,7 @@
   <% if @recipe.tags.any? %>
     <div class="mb-6 flex flex-wrap gap-3 justify-center">
       <% @recipe.tags.each do |tag| %>
-        <span class="bg-purple-100 text-purple-700 text-lg px-3 py-1 rounded-full">
+        <span class="bg-orange-100 text-orange-700 text-lg px-3 py-1 rounded-full">
           #<%= tag.name %>
         </span>
       <% end %>
@@ -23,7 +23,7 @@
   <!-- 🕒 つくる時間 -->
   <div class="mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 flex items-center gap-2">🕒 つくる時間</h2>
-    <p class="text-xl text-gray-900 leading-relaxed mt-2"><%= @recipe.required_time %></p>
+    <p class="text-xl text-gray-900 leading-relaxed mt-2"><%= @recipe.required_time %>分</p>
   </div>
 
   <!-- 🥬 つかうもの（材料） -->
@@ -50,12 +50,12 @@
 
   <!-- 👤 作ったひと・日付 -->
   <div class="text-lg text-gray-600 mb-8 text-center">
-    <p>👤 作ったひと: <%= @recipe.user.name %></p>
+    <p>👤 作ったひと: <%= current_family.name %> のレシピ</p>
     <p>📅 のせた日: <%= @recipe.created_at.strftime("%Y年%m月%d日") %></p>
   </div>
 
   <!-- ✏️ 編集・🗑️ 削除 -->
-  <% if @recipe.user == current_family.id %>
+  <% if @recipe.family_id == current_family.id %>
     <div class="flex flex-col items-center space-y-4">
       <%= link_to "✏️ 編集", edit_recipe_path(@recipe),
           class: "bg-blue-100 text-blue-700 text-xl px-6 py-3 rounded-full hover:bg-blue-200" %>

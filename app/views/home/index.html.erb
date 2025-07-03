@@ -8,15 +8,17 @@
     あたたかな思い出のアルバムのようなアプリです。
   </p>
 
-  <% if user_signed_in? %>
-    <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <%= link_to "📖 レシピ一覧を見る", recipes_path, class: "bg-[#d16a50] hover:bg-[#b8553f] text-white text-lg font-semibold py-3 px-6 rounded-full transition" %>
-      <%= link_to "✍️ レシピを投稿する", new_recipe_path, class: "bg-[#6e5e57] hover:bg-[#4b3e39] text-white text-lg font-semibold py-3 px-6 rounded-full transition" %>
-    </div>
-  <% else %>
-    <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <%= link_to "🔑 ログイン", new_user_session_path, class: "bg-[#d16a50] hover:bg-[#b8553f] text-white text-lg font-semibold py-3 px-6 rounded-full transition" %>
-      <%= link_to "📝 新規登録", new_user_registration_path, class: "bg-[#6e5e57] hover:bg-[#4b3e39] text-white text-lg font-semibold py-3 px-6 rounded-full transition" %>
-    </div>
-  <% end %>
+  <% if current_family %>
+  <div class="flex flex-col sm:flex-row justify-center gap-4">
+    <%= link_to "📖 レシピ一覧を見る", recipes_path, class: "bg-[#d16a50] hover:bg-[#b8553f] text-white text-lg font-semibold py-3 px-6 rounded-full transition" %>
+    <%= link_to "✍️ レシピを投稿する", new_recipe_path, class: "bg-[#6e5e57] hover:bg-[#4b3e39] text-white text-lg font-semibold py-3 px-6 rounded-full transition" %>
+  </div>
+<% else %>
+  <p class="text-center text-[#6e5e57] mt-4">
+    まずは家族コードでログインしてください。
+  </p>
+  <div class="flex justify-center mt-4">
+    <%= link_to "家族コードでログイン", new_family_login_path, class: "bg-[#d16a50] hover:bg-[#b8553f] text-white text-lg font-semibold py-3 px-6 rounded-full transition" %>
+  </div>
+<% end %>
 </div>

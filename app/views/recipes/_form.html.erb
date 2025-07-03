@@ -1,27 +1,37 @@
 <div class="bg-yellow-50/80 backdrop-blur-md text-black p-8 rounded-3xl shadow-2xl max-w-2xl mx-auto">
+<% if @recipe.errors.any? %>
+  <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+    <p class="font-bold mb-2">エラーがあります:</p>
+    <ul class="list-disc list-inside">
+      <% @recipe.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
   <%= form_with model: @recipe, local: true, html: { multipart: true } do |f| %>
     <!-- 📝 タイトル -->
     <div class="mb-6">
       <%= f.label :title, "📝 レシピ名", class: "block text-xl font-semibold mb-2 font-sans" %>
-      <%= f.text_field :title, class: "w-full p-4 text-lg border rounded-xl" %>
+      <%= f.text_field :title, class: "w-full p-4 text-lg border rounded-xl", required: true %>
     </div>
 
     <!-- 🕒 つくる時間 -->
     <div class="mb-6">
       <%= f.label :required_time, "🕒 つくる時間（分）", class: "block text-xl font-semibold mb-2 font-sans" %>
-      <%= f.number_field :required_time, class: "w-full p-4 text-lg border rounded-xl" %>
+      <%= f.number_field :required_time, class: "w-full p-4 text-lg border rounded-xl", required: true %>
     </div>
 
     <!-- 🥬 材料 -->
     <div class="mb-6">
       <%= f.label :ingredients, "🥬 つかうもの（材料）", class: "block text-xl font-semibold mb-2 font-sans" %>
-      <%= f.text_area :ingredients, rows: 4, class: "w-full p-4 text-lg border rounded-xl" %>
+      <%= f.text_area :ingredients, rows: 4, class: "w-full p-4 text-lg border rounded-xl", required: true %>
     </div>
 
     <!-- 🍳 作り方 -->
     <div class="mb-6">
       <%= f.label :instructions, "🍳 つくりかた", class: "block text-xl font-semibold mb-2 font-sans" %>
-      <%= f.text_area :instructions, rows: 5, class: "w-full p-4 text-lg border rounded-xl" %>
+      <%= f.text_area :instructions, rows: 5, class: "w-full p-4 text-lg border rounded-xl" , required: true%>
     </div>
 
     <!-- 🌟 作りやすさ -->
