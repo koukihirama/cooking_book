@@ -10,10 +10,9 @@ class RecipesController < ApplicationController
   end
 
   def index
-  @recipes = Recipe.includes(:user, :tags)
-                 .with_attached_image
-                 .where(family_id: current_family.id)
-                 .order(created_at: :desc)
+  @recipes = Recipe.includes(:tags, image_attachment: :blob)
+                   .where(family_id: current_family.id)
+                   .order(created_at: :desc)
   end
 
   def create
@@ -67,6 +66,6 @@ end
   end
 
   def authorize_user!
-    redirect_to recipes_path, alert: "権限がありません" unless @recipe.user == current_user
+    redirect_to recipes_path, alert: "権限がありません" unless @recipe.family == current_family
   end
 end
