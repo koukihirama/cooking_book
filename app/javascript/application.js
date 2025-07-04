@@ -2,3 +2,7 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import 'preline'
+
+document.addEventListener("turbo:load", () => {
+  window.HSOverlay?.init();
+});
