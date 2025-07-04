@@ -80,4 +80,5 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
+RUN bundle exec rails assets:precompile
 CMD ["bash", "-c", "bundle exec rails db:migrate && ./bin/rails server"]
