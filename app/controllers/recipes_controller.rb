@@ -16,10 +16,11 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe = current_family.recipes.build(recipe_params)
-    @recipe.family_id = current_family.id
+  @recipe = Recipe.new(recipe_params)
+  @recipe.family = current_family
+
   if @recipe.save
-    redirect_to @recipe, notice: "レシピを投稿しました"
+    redirect_to recipes_path, notice: "投稿できました"
   else
     render :new
   end
