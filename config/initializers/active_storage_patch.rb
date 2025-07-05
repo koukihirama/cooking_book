@@ -1,12 +1,11 @@
-require "active_storage/service/s3_service"
+rrequire "active_storage/service/s3_service"
 
 Rails.application.config.to_prepare do
   ActiveStorage::Service::S3Service.class_eval do
-    private def upload_with_disabled_checksum(key, io, checksum: nil, **options)
-      upload_without_checksum(key, io, **options)
-    end
+    private
 
-    alias_method :upload_without_checksum, :upload
-    alias_method :upload, :upload_with_disabled_checksum
+    def upload(key, io, checksum: nil, **options)
+      super(key, io, **options) # checksum を渡さずにオーバーライド
+    end
   end
 end
