@@ -11,7 +11,6 @@ module Myapp
     config.load_defaults 7.2
     config.autoload_lib(ignore: %w[assets tasks])
 
-    # 👇 ここを追記！
     ENV['AWS_USE_CHECKSUM'] = 'false'
 
     # config.time_zone = "Central Time (US & Canada)"
