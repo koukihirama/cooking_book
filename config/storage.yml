@@ -6,11 +6,11 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-  r2:
+r2:
   service: S3
   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
   region: auto
+  endpoint: https://0e404eea32a2f3a7adec90377ded1d65.r2.cloudflarestorage.com
   bucket: family-recipe-assets
-  endpoint: https://0e404eea32a2f3a7adec90377ded1d65.r2.cloudflarestorage.com/family-recipe-assets
   force_path_style: true

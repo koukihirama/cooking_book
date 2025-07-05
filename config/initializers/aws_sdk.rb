@@ -1,0 +1,1 @@
+Aws.config.update(s3_use_checksum: false)
