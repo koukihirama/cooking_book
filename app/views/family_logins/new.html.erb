@@ -1,19 +1,26 @@
-<h1 class="text-3xl font-bold text-center text-orange-700 mb-8 bg-orange-50 px-6 py-3 rounded-xl shadow-md tracking-wide font-sans">
-  家族コードでログイン
+<h1 class="text-4xl font-bold text-center text-[#d16a50] mb-12 bg-orange-50 px-8 py-6 rounded-2xl shadow-lg tracking-wide font-sans">
+  🔑 家族コードでログイン
 </h1>
 
-<div class="bg-[#fffaf3] p-6 rounded-lg shadow max-w-md mx-auto">
+<div class="bg-[#fffaf3] p-12 rounded-[2rem] shadow-2xl max-w-xl mx-auto text-[#4b3e39] min-h-[500px] flex flex-col justify-between">
   <%= form_with url: family_login_path, method: :post, local: true do |form| %>
-    <div class="mb-4">
-      <%= form.label :family_code, "家族コード", class: "block text-[#6e5e57] mb-1" %>
-      <%= form.text_field :family_code, value: (params[:family_code] || cookies[:family_code]), class: "block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
+    
+    <!-- 🔑 家族コード入力 -->
+    <div class="mb-10">
+      <%= form.label :family_code, "🔑 家族コード", class: "block text-2xl font-semibold mb-4" %>
+      <%= form.text_field :family_code, value: (params[:family_code] || cookies[:family_code]), class: "block w-full border border-gray-300 rounded-2xl p-6 text-2xl shadow focus:outline-none focus:ring-2 focus:ring-[#d16a50]", placeholder: "例：ABC123" %>
     </div>
 
-    <p class="mt-6 text-center text-sm">
-      家族コードをまだお持ちでない方は
-      <%= link_to "こちらから家族を作成", new_family_path, class: "text-[#d16a50] underline" %>
+    <!-- ✨ 家族作成リンク -->
+    <p class="text-center text-lg mb-10">
+      家族コードをまだお持ちでない方は<br>
+      <%= link_to "こちらから家族を作成", new_family_path, class: "text-[#d16a50] underline font-semibold" %>
     </p>
 
-    <%= form.submit "ログイン", class: "bg-[#6e5e57] hover:bg-[#4b3e39] text-white font-semibold py-2 px-4 rounded transition w-full" %>
+    <!-- ✅ ログインボタン -->
+    <div class="mt-auto pt-6">
+      <%= form.submit "✅ ログイン", class: "bg-[#d16a50] hover:bg-[#b8553f] text-white text-2xl font-bold py-5 px-6 rounded-full w-full shadow-lg transition duration-300 ease-in-out" %>
+    </div>
+
   <% end %>
 </div>
