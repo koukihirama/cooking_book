@@ -37,8 +37,10 @@
       <!-- 🍳 作り方 -->
       <div>
         <%= f.label :instructions, "🍳 つくりかた", class: "block text-xl font-semibold mb-2" %>
-        <p class="text-sm text-gray-600 mb-1">番号をふって（例：1. 卵をとく）</p>
-        <%= f.text_area :instructions, rows: 5, placeholder: "1. 卵と調味料を混ぜる\n2. フライパンで焼く", class: "w-full p-4 text-lg border rounded-xl", required: true %>
+        <p class="text-sm text-gray-600 mb-1">
+          各手順を1行ずつ書いてください（番号は自動で表示されます）
+        </p>
+        <%= f.text_area :instructions, rows: 5, placeholder: "卵と調味料を混ぜる\nフライパンで焼く", class: "w-full p-4 text-lg border rounded-xl", required: true %>
       </div>
 
       <!-- 🌟 作りやすさ -->
