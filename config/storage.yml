@@ -14,5 +14,3 @@ r2:
   endpoint: https://0e404eea32a2f3a7adec90377ded1d65.r2.cloudflarestorage.com
   bucket: family-recipe-assets
   force_path_style: true
-  upload:
-    checksum: false
