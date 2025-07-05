@@ -1,11 +1,9 @@
 require "active_storage/service/s3_service"
 
-Rails.application.config.to_prepare do
-  ActiveStorage::Service::S3Service.class_eval do
-    private
-
-    def upload(key, io, checksum: nil, **options)
-      super(key, io, **options) # checksum を渡さずにオーバーライド
-    end
+module ActiveStorageChecksumPatch
+  def upload(key, io, checksum: nil, **options)
+    super(key, io, checksum: nil, **options) # ← 明示的に checksum を nil に
   end
 end
+
+ActiveStorage::Service::S3Service.prepend(ActiveStorageChecksumPatch)
